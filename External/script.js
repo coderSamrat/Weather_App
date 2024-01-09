@@ -5,6 +5,7 @@ async function checkWeather(city) {
       const weather_icon = document.querySelector(".weatherLogo");
       if (response.status == 404) {
             document.querySelector(".error").style.display = "block";
+            document.querySelector(".weather").style.display = "none";
       } else {
             const data = await response.json();
             document.querySelector(".cityName").innerHTML = data.name;
@@ -22,11 +23,13 @@ async function checkWeather(city) {
             } else if (data.weather[0].main == "Mist") {
                   weather_icon.src = "./External/images/mist.png";
             }
+            document.querySelector(".error").style.display = "none";
             document.querySelector(".weather").style.display = "block";
       }
 }
 const search_btn = document.querySelector(".form .btn");
 search_btn.addEventListener("click", (event) => {
+      event.preventDefault();
       const search_box = document.querySelector(".form .inputBox");
       checkWeather(search_box.value);
 });
